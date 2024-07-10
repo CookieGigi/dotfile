@@ -48,7 +48,7 @@ vim.api.nvim_set_keymap("i", "<C-s>", "<Esc>:w<CR>", { noremap = true, silent = 
 -- telescope
 --  TODO : Use which key-map to name properly category
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Search all files" })
+vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>", { desc = "Search all files" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Search open buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Search for nvim or plugin help" })
@@ -89,6 +89,7 @@ end, { silent = true, buffer = bufnr })
 
 -- lazygit
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
+
 -- reload config
 function _G.ReloadConfig()
   for name,_ in pairs(package.loaded) do

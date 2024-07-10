@@ -192,3 +192,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 	group = format_sync_grp,
 })
+
+
+-- telescope
+require("telescope").setup({
+  defaults={
+    file_ignore_patterns = {
+       "node_modules", "build", "dist", "%.lock", "^.git/"
+   },
+  }
+})
