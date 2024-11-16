@@ -20,9 +20,6 @@ vim.opt.relativenumber = true -- Enable relative line numbers
 vim.o.cursorline = true -- Highlight the current line
 vim.o.termguicolors = true -- Enable 24-bit RGB colors (Color are better without)
 
--- clipboard provider
-vim.opt.clipboard = "unnamedplus" -- use system clipboard
-
 -- disable mouse
 vim.opt.mouse = ""
 
