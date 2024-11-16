@@ -5,8 +5,11 @@ local opts = {
 }
 
 -- Helper --
+local wk = require("which-key")
 local keymap = function(mode, lhs, rhs, opts)
-  vim.keymap.set(mode, lhs, rhs, opts)
+  opts = opts or {noremap = true, silent = true}
+  wk.add({mode= { mode }, {lhs, rhs, noremap = opts.noremap, silent = opts.silent, desc=opts.desc, group=opts.group, hidden=opts.hidden } })
+  --vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 local keymap_leader = function(mode, suffix, rhs, opts)
@@ -68,32 +71,60 @@ vim.g.mapleader = " " -- Space as the leader key
 -----------------
 
 -- Better window navigation
-Map.mode.n("<C-h>", "<C-w>h", opts)
-Map.mode.n("<C-j>", "<C-w>j", opts)
-Map.mode.n("<C-k>", "<C-w>k", opts)
-Map.mode.n("<C-l>", "<C-w>l", opts)
+Map.mode.n("<C-h>", "<C-w>h", { noremap = true, silent = true, desc = "Move to left window" })
+Map.mode.n("<C-j>", "<C-w>j", { noremap = true, silent = true, desc = "Move to top window" })
+Map.mode.n("<C-k>", "<C-w>k", { noremap = true, silent = true, desc = "Move to bottom window" })
+Map.mode.n("<C-l>", "<C-w>l", { noremap = true, silent = true, desc = "Move to right window" })
 
 -- Resize with arrows
 -- delta: 2 lines
-Map.mode.n("<C-Up>", ":resize -2<CR>", opts)
-Map.mode.n("<C-Down>", ":resize +2<CR>", opts)
-Map.mode.n("<C-Left>", ":vertical resize -2<CR>", opts)
-Map.mode.n("<C-Right>", ":vertical resize +2<CR>", opts)
+Map.mode.n("<C-Up>", ":resize -2<CR>", { noremap = true, silent = true, desc = "Reduce vertical size" })
+Map.mode.n("<C-Down>", ":resize +2<CR>", { noremap = true, silent = true, desc = "Increase vertical size" })
+Map.mode.n("<C-Left>", ":vertical resize -2<CR>", { noremap = true, silent = true, desc = "Reduce horizontal size" })
+Map.mode.n("<C-Right>", ":vertical resize +2<CR>", { noremap = true, silent = true, desc = "Increase horizontal size" })
 
 -- Navigate buffers
-Map.mode.n("<S-l>", ":bnext<CR>", opts)
-Map.mode.n("<S-h>", ":bprevious<CR>", opts)
+Map.mode.n("<S-l>", ":bnext<CR>", { noremap = true, silent = true, desc = "Next buffer" })
+Map.mode.n("<S-h>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 
 -- Save keybind
 Map.mode.n("<C-s>", ":w<CR>", { noremap = true, silent = true, desc = "Save" }) -- add command write on <leader>w in normal mode
+
+-- Explorer--
+Map.leader.n("e", ":Explore<CR>", { noremap = true, silent = true, desc = "Open explorer" })
+
+-- System clipboard
+Map.leader.n("y", '"+y', {noremap = true, silent = true, desc="Copy selection"})
+
+-- Which-key
+Map.leader.n("?",
+function()
+  require("which-key").show({global = true})
+end,
+{ noremap = true, silent = true, desc = "Open keys mappings" }) 
 
 -----------------
 -- Visual mode --
 -----------------
 
 -- use < and > to indent multiple lines
-Map.mode.v("<", "<gv", opts)
-Map.mode.v(">", ">gv", opts)
+Map.mode.v("<", "<gv", { noremap = true, silent = true, desc = "Unindent" })
+Map.mode.v(">", ">gv", { noremap = true, silent = true, desc = "Indent" })
+
+-- Move text up and down
+Map.mode.v("<A-j>", ":m '>+1<CR>gv=gv", { silent = true, noremap = true, desc="Move text down"})
+Map.mode.v("<A-k>", ":m '<-2<CR>gv=gv", { silent = true, noremap = true, desc="Move text up" })
+Map.mode.v("p", '"_dP')
+
+-- System clipboard
+Map.leader.v("y", '"+y', {noremap = true, silent = true, desc="Copy selection"})
+
+-- Which-key
+Map.leader.v("?",
+function()
+  require("which-key").show({global = true})
+end,
+{ noremap = true, silent = true, desc = "Open keys mappings" }) 
 
 -----------------
 -- Insert mode --
@@ -102,4 +133,4 @@ Map.mode.v(">", ">gv", opts)
 -- Save keybind
 Map.mode.i("<C-s>", "<Esc>:w<CR>", { noremap = true, silent = true, desc = "Save" }) -- add command write on <leader>w in normal mode
 
-
+return Map
