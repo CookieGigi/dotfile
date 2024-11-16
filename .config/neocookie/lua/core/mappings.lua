@@ -80,6 +80,10 @@ Map.mode.n("<C-Down>", ":resize +2<CR>", opts)
 Map.mode.n("<C-Left>", ":vertical resize -2<CR>", opts)
 Map.mode.n("<C-Right>", ":vertical resize +2<CR>", opts)
 
+-- Navigate buffers
+Map.mode.n("<S-l>", ":bnext<CR>", opts)
+Map.mode.n("<S-h>", ":bprevious<CR>", opts)
+
 -- Save keybind
 Map.mode.n("<C-s>", ":w<CR>", { noremap = true, silent = true, desc = "Save" }) -- add command write on <leader>w in normal mode
 
