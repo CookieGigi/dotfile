@@ -31,14 +31,12 @@ require("lazy").setup({
 	{ "neovim/nvim-lspconfig" },
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-nvim-lsp-signature-help"},
+  { "hrsh7th/cmp-path"},
 	{ "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
 	{ "hrsh7th/cmp-buffer" },
 	{ "L3MON4D3/LuaSnip" },
 	{ "echasnovski/mini.nvim", branch = "stable" },
-	{
-		"folke/todo-comments.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
 	{
 		"folke/trouble.nvim",
 		opt = {},
@@ -68,6 +66,7 @@ require("lazy").setup({
 			{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
 		},
 	},
+  { "prettier/vim-prettier"}
 })
 
 -- catppuccin
@@ -143,6 +142,48 @@ lsp_zero.on_attach(function(client, bufnr)
 	lsp_zero.default_keymaps({ buffer = bufnr, preserve_mappings = false })
 end)
 
+
+-- -- nextjs
+-- local on_attach = function(client, bufnr)
+--   -- Enable completion triggered by <c-x><c-o>
+--   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+--
+--   -- Mappings to magical LSP functions!
+--   local bufopts = { noremap=true, silent=true, buffer=bufnr }
+--   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+--   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+--   vim.keymap.set('n', 'gk', vim.lsp.buf.hover, bufopts)
+--   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+--   vim.keymap.set('n', 'gK', vim.lsp.buf.signature_help, bufopts)
+--   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+--   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+--   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+--   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+--   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+-- end
+--
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+--
+-- local lspconfig = require('lspconfig')
+-- local servers = { 'tailwindcss', 'tsserver', 'jsonls', 'eslint' }
+-- for _, lsp in pairs(servers) do
+--   lspconfig[lsp].setup {
+--     on_attach = on_attach,
+--     capabilites = capabilities,
+--   }
+-- end
+--
+-- lspconfig.cssls.setup {
+--   on_attach = on_attach,
+--   capabilities = capabilities
+-- }
+--
+-- lspconfig.html.setup {
+--   on_attach = on_attach,
+--   capabilities = capabilities
+-- }
+
+
 -- cmp
 
 local cmp = require("cmp")
@@ -152,6 +193,8 @@ cmp.setup({
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "buffer" },
+    { name = "nvim_lsp_signature_help"},
+    { name = "path"},
 	},
 	formatting = lsp_zero.cmp_format({ details = true }),
 	mapping = cmp.mapping.preset.insert({
@@ -175,9 +218,6 @@ require("mini.comment").setup({})
 -- highlight word under cursor
 require("mini.cursorword").setup({})
 
--- todo-comments
--- BUG : TodoTelescope empty
-require("todo-comments").setup({})
 
 -- trouble
 require("trouble").setup({})
@@ -202,3 +242,4 @@ require("telescope").setup({
    },
   }
 })
+
