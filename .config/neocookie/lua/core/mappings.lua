@@ -103,6 +103,19 @@ function()
 end,
 { noremap = true, silent = true, desc = "Open keys mappings" }) 
 
+-- Telescope
+local builtin = require("telescope.builtin")
+Map.leader.n("f", "", {group = "Search"})
+Map.leader.n("ff", "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>", { desc = "Search all files" })
+Map.leader.n("fg", builtin.live_grep, { desc = "Live grep" })
+Map.leader.n("fb", builtin.buffers, { desc = "Search open buffers" })
+Map.leader.n("fh", builtin.help_tags, { desc = "Search for nvim or plugin help" })
+Map.leader.n("fc", builtin.grep_string, { desc = "Search for string under cursor" })
+Map.leader.n("fo", builtin.oldfiles, { desc = "Search in file history" })
+Map.leader.n("ft", builtin.treesitter, { desc = "Search tree-sitter" })
+
+
+
 -----------------
 -- Visual mode --
 -----------------
