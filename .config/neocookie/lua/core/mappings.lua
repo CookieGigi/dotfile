@@ -189,6 +189,11 @@ Map.OnLspAttach = function(bufnr)
   -- Code
   Map.leader.n("c", "", {group = "Code"})
   Map.leader.n("cr", "<CMD>lua vim.lsp.buf.rename()<CR>", { desc = "Rename (LSP)", buffer = bufnr })
+  Map.leader.n(
+    "ca",
+    require("actions-preview").code_actions,
+    { desc = "Code Action (LSP)", buffer = bufnr }
+  )
   Map.leader.n("cf", "<CMD>:lua vim.lsp.buf.format()<CR>", { desc = "Format file (LSP)", buffer = bufnr })
 
 
