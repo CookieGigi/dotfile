@@ -146,4 +146,65 @@ end,
 -- Save keybind
 Map.mode.i("<C-s>", "<Esc>:w<CR>", { noremap = true, silent = true, desc = "Save" }) -- add command write on <leader>w in normal mode
 
+
+
+-----------------
+-- LSP    mode --
+-----------------
+
+Map.OnLspAttach = function(bufnr)
+  local builtin = require("telescope.builtin")
+  local temp = ""
+
+  -- LSP
+  Map.leader.n("l", "", {group = "LSP"});
+  Map.leader.n(
+    "ld",
+    builtin.lsp_definitions,
+    { desc = "Go to definitions (LSP)", buffer = bufnr }
+  )
+  Map.leader.n(
+    "lr",
+    builtin.lsp_references,
+    { desc = "Go to references (LSP)", buffer = bufnr }
+  )
+  Map.leader.n("lD", "<CMD>lua vim.lsp.buf.declaration()<CR>", { desc = "Go to declaration (LSP)", buffer = bufnr })
+  Map.leader.n(
+    "lT",
+    "<CMD>lua vim.lsp.buf.type_definition()<CR>",
+    { desc = "Go to type definition (LSP)", buffer = bufnr }
+  )
+  Map.leader.n("li", "<CMD>lua vim.lsp.buf.hover()<CR>", { desc = "Symbol information (LSP)", buffer = bufnr })
+  Map.leader.n(
+    "lS",
+    builtin.lsp_document_symbols,
+    { desc = "Document symbols", buffer = bufnr }
+  )
+  Map.leader.n(
+    "ls",
+    "<CMD>:lua vim.lsp.buf.signature_help()<CR>",
+    { desc = "Signature information (LSP)", buffer = bufnr }
+  )
+
+  -- Code
+  Map.leader.n("c", "", {group = "Code"})
+  Map.leader.n("cr", "<CMD>lua vim.lsp.buf.rename()<CR>", { desc = "Rename (LSP)", buffer = bufnr })
+  Map.leader.n("cf", "<CMD>:lua vim.lsp.buf.format()<CR>", { desc = "Format file (LSP)", buffer = bufnr })
+
+
+  -- Diagnostic
+  Map.leader.n("d", "", {group = "Diagnostic"})
+  Map.leader.n(
+    "dl",
+    "<CMD>lua vim.diagnostic.open_float(0, { scope = 'line' })<CR>",
+    { desc = "Line diagnostic (LSP)", buffer = bufnr }
+  )
+  Map.leader.n("dp", builtin.diagnostics, { desc = "Diagnostic popup (LSP)", buffer = bufnr })
+  Map.leader.n("dj", "<CMD>:lua vim.diagnostic.goto_next()<CR>", { desc = "Next diagnostic (LSP)", buffer = bufnr })
+  Map.leader.n("dk", "<CMD>:lua vim.diagnostic.goto_prev()<CR>", { desc = "Prev diagnostic (LSP)", buffer = bufnr })
+  
+end
+
+
 return Map
+
