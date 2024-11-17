@@ -106,9 +106,9 @@ export PATH
 eval "$(zoxide init --cmd cd zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias ls="eza -l -a"
-alias v="NVIM_APPNAME=nvim nvim"
+alias vo="NVIM_APPNAME=nvim nvim"
 alias vl="NVIM_APPNAME=lazyvim nvim"
-alias vc="NVIM_APPNAME=neocookie nvim"
+alias v="NVIM_APPNAME=neocookie nvim"
 
 
 if [ "$TMUX" = "" ]; then tmux; fi
