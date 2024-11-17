@@ -10,6 +10,8 @@ return {
     "hrsh7th/cmp-cmdline",
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
+    "hrsh7th/cmp-nvim-lsp-signature-help",
+
   },
   config = function()
     local lspkind = require("lspkind")
@@ -49,6 +51,7 @@ return {
         { name = "buffer" },
         { name = "path" },
         { name = "cmdline" },
+        { name = 'nvim_lsp_signature_help' },
       },
       window = {
         completion = cmp.config.window.bordered(),
