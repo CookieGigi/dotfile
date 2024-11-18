@@ -114,10 +114,14 @@ Map.leader.n("fc", builtin.grep_string, { desc = "Search for string under cursor
 Map.leader.n("fo", builtin.oldfiles, { desc = "Search in file history" })
 Map.leader.n("ft", builtin.treesitter, { desc = "Search tree-sitter" })
 
-
+-- Git (g) --
+Map.leader.n("g", "", {desc = "GIT"})
+Map.leader.n("gg", "<CMD>lua Snacks.lazygit()<CR>", { desc = "Open LazyGit (GIT)" })
+Map.leader.n("gr", "<CMD>lua Snacks.gitbrowse()<CR>", { desc = "Open repository on browser (GIT)" })
 Map.leader.n("gb", "", {desc = "GIT Blame"})
 Map.leader.n("gbb", "<CMD>Gitsigns blame_line full=true<CR>", { desc = "Blame line (GIT)" })
 Map.leader.n("gbt", "<CMD>Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle blame line (GIT)" })
+Map.leader.n("gbl", "<CMD>lua Snacks.git.blame_line()<CR>", { desc = "Show blame line in Popup (GIT)" })
 
 -----------------
 -- Visual mode --
