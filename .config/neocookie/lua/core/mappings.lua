@@ -131,6 +131,7 @@ Map.mode.v("p", '"_dP')
 
 -- System clipboard
 Map.leader.v("y", '"+y', {noremap = true, silent = true, desc="Copy selection"})
+Map.leader.v("p", '"+p', {noremap = true, silent = true, desc="Paste selection"})
 
 -- Which-key
 Map.leader.v("?",
