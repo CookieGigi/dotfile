@@ -115,6 +115,9 @@ Map.leader.n("fo", builtin.oldfiles, { desc = "Search in file history" })
 Map.leader.n("ft", builtin.treesitter, { desc = "Search tree-sitter" })
 
 
+Map.leader.n("gb", "", {desc = "GIT Blame"})
+Map.leader.n("gbb", "<CMD>Gitsigns blame_line full=true<CR>", { desc = "Blame line (GIT)" })
+Map.leader.n("gbt", "<CMD>Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle blame line (GIT)" })
 
 -----------------
 -- Visual mode --
