@@ -1,18 +1,18 @@
 return {
   "neovim/nvim-lspconfig",
-  config= function()
+  config = function()
     local lspconfig = require("lspconfig");
 
     -- common capabilities
     local capabilities = nil
 
-    -- list of lsp 
+    -- list of lsp
     local servers = {
       rust_analyzer = {
         settings = {
           ['rust-analyzer'] = {
             diagnostics = {
-              enable = false;
+              enable = false,
             }
           }
         }
@@ -37,7 +37,7 @@ return {
       lua = true,
     }
 
-    -- fun call when file open 
+    -- fun call when file open
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
         local bufnr = args.buf
