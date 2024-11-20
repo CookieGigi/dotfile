@@ -17,6 +17,7 @@ return {
           }
         }
       },
+      csharp_ls = {},
 
     }
 
