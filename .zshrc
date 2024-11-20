@@ -101,6 +101,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 path+="$HOME/.local/bin"
+path+="/opt/nvim/"
 export PATH
 
 eval "$(zoxide init --cmd cd zsh)"
