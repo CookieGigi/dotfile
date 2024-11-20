@@ -46,4 +46,10 @@ sudo apt install neovim
 
 # luarocks (use by neovim)
 sudo apt install luarocks
+
+# Rust-analzrer
+Install Rust toolchain
+
+# lua-language-server
+Install via homebrew
 ```
