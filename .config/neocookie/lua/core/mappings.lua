@@ -1,14 +1,8 @@
--- define common options
-local opts = {
-	noremap = true, -- non-recursive
-	silent = true, -- do not show message
-}
-
 -- Helper --
 local wk = require("which-key")
 local keymap = function(mode, lhs, rhs, opts)
-  opts = opts or {noremap = true, silent = true}
-  wk.add({mode= { mode }, {lhs, rhs, noremap = opts.noremap, silent = opts.silent, desc=opts.desc, group=opts.group, hidden=opts.hidden } })
+  opts = opts or { noremap = true, silent = true }
+  wk.add({ mode = { mode }, { lhs, rhs, noremap = opts.noremap, silent = opts.silent, desc = opts.desc, group = opts.group, hidden = opts.hidden } })
   --vim.keymap.set(mode, lhs, rhs, opts)
 end
 
@@ -52,6 +46,7 @@ local Map = {
   mode = create_mode_table(keymap),
   leader = create_mode_table(keymap_leader),
   OnLspAttach = nil,
+  OnRustLspAttach = nil
 }
 
 -- Modes
@@ -90,23 +85,21 @@ Map.mode.n("<S-h>", ":bprevious<CR>", { noremap = true, silent = true, desc = "P
 -- Save keybind
 Map.mode.n("<C-s>", ":w<CR>", { noremap = true, silent = true, desc = "Save" }) -- add command write on <leader>w in normal mode
 
--- Explorer--
-Map.leader.n("e", ":Explore<CR>", { noremap = true, silent = true, desc = "Open explorer" })
-
 -- System clipboard
-Map.leader.n("y", '"+y', {noremap = true, silent = true, desc="Copy selection"})
+Map.leader.n("y", '"+y', { noremap = true, silent = true, desc = "Copy selection" })
 
 -- Which-key
 Map.leader.n("?",
-function()
-  require("which-key").show({global = true})
-end,
-{ noremap = true, silent = true, desc = "Open keys mappings" }) 
+  function()
+    require("which-key").show({ global = true })
+  end,
+  { noremap = true, silent = true, desc = "Open keys mappings" })
 
 -- Telescope
 local builtin = require("telescope.builtin")
-Map.leader.n("f", "", {group = "Search"})
-Map.leader.n("ff", "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>", { desc = "Search all files" })
+Map.leader.n("f", "", { group = "Search" })
+Map.leader.n("ff", "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<cr>",
+  { desc = "Search all files" })
 Map.leader.n("fg", builtin.live_grep, { desc = "Live grep" })
 Map.leader.n("fb", builtin.buffers, { desc = "Search open buffers" })
 Map.leader.n("fh", builtin.help_tags, { desc = "Search for nvim or plugin help" })
@@ -115,13 +108,18 @@ Map.leader.n("fo", builtin.oldfiles, { desc = "Search in file history" })
 Map.leader.n("ft", builtin.treesitter, { desc = "Search tree-sitter" })
 
 -- Git (g) --
-Map.leader.n("g", "", {desc = "GIT"})
+Map.leader.n("g", "", { desc = "GIT" })
 Map.leader.n("gg", "<CMD>lua Snacks.lazygit()<CR>", { desc = "Open LazyGit (GIT)" })
 Map.leader.n("gr", "<CMD>lua Snacks.gitbrowse()<CR>", { desc = "Open repository on browser (GIT)" })
-Map.leader.n("gb", "", {desc = "GIT Blame"})
+Map.leader.n("gb", "", { desc = "GIT Blame" })
 Map.leader.n("gbb", "<CMD>Gitsigns blame_line full=true<CR>", { desc = "Blame line (GIT)" })
 Map.leader.n("gbt", "<CMD>Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle blame line (GIT)" })
 Map.leader.n("gbl", "<CMD>lua Snacks.git.blame_line()<CR>", { desc = "Show blame line in Popup (GIT)" })
+
+-- Open
+Map.leader.n("o", "", { group = "Open" })
+Map.leader.n("ol", "<CMD>Lazy<CR>", { desc = "Lazy" })
+Map.leader.n("oe", ":Explore<CR>", { noremap = true, silent = true, desc = "Open explorer" })
 
 -----------------
 -- Visual mode --
@@ -132,20 +130,21 @@ Map.mode.v("<", "<gv", { noremap = true, silent = true, desc = "Unindent" })
 Map.mode.v(">", ">gv", { noremap = true, silent = true, desc = "Indent" })
 
 -- Move text up and down
-Map.mode.v("<A-j>", ":m '>+1<CR>gv=gv", { silent = true, noremap = true, desc="Move text down"})
-Map.mode.v("<A-k>", ":m '<-2<CR>gv=gv", { silent = true, noremap = true, desc="Move text up" })
+Map.mode.v("<A-j>", ":m '>+1<CR>gv=gv", { silent = true, noremap = true, desc = "Move text down" })
+Map.mode.v("<A-k>", ":m '<-2<CR>gv=gv", { silent = true, noremap = true, desc = "Move text up" })
 Map.mode.v("p", '"_dP')
 
 -- System clipboard
-Map.leader.v("y", '"+y', {noremap = true, silent = true, desc="Copy selection"})
-Map.leader.v("p", '"+p', {noremap = true, silent = true, desc="Paste selection"})
+Map.leader.v("y", '"+y', { noremap = true, silent = true, desc = "Copy selection" })
+Map.leader.v("p", '"+p', { noremap = true, silent = true, desc = "Paste selection" })
 
 -- Which-key
 Map.leader.v("?",
-function()
-  require("which-key").show({global = true})
-end,
-{ noremap = true, silent = true, desc = "Open keys mappings" }) 
+  function()
+    require("which-key").show({ global = true })
+  end,
+  { noremap = true, silent = true, desc = "Open keys mappings" })
+
 
 -----------------
 -- Insert mode --
@@ -162,10 +161,9 @@ Map.mode.i("<C-s>", "<Esc>:w<CR>", { noremap = true, silent = true, desc = "Save
 
 Map.OnLspAttach = function(bufnr)
   local builtin = require("telescope.builtin")
-  local temp = ""
 
   -- LSP
-  Map.leader.n("l", "", {group = "LSP"});
+  Map.leader.n("l", "", { group = "LSP" });
   Map.leader.n(
     "ld",
     builtin.lsp_definitions,
@@ -195,7 +193,7 @@ Map.OnLspAttach = function(bufnr)
   )
 
   -- Code
-  Map.leader.n("c", "", {group = "Code"})
+  Map.leader.n("c", "", { group = "Code" })
   Map.leader.n("cr", "<CMD>lua vim.lsp.buf.rename()<CR>", { desc = "Rename (LSP)", buffer = bufnr })
   Map.leader.n(
     "ca",
@@ -206,18 +204,101 @@ Map.OnLspAttach = function(bufnr)
 
 
   -- Diagnostic
-  Map.leader.n("d", "", {group = "Diagnostic"})
+  Map.leader.n("e", "", { group = "Diagnostic" })
   Map.leader.n(
-    "dl",
+    "el",
     "<CMD>lua vim.diagnostic.open_float(0, { scope = 'line' })<CR>",
     { desc = "Line diagnostic (LSP)", buffer = bufnr }
   )
-  Map.leader.n("dp", builtin.diagnostics, { desc = "Diagnostic popup (LSP)", buffer = bufnr })
-  Map.leader.n("dj", "<CMD>:lua vim.diagnostic.goto_next()<CR>", { desc = "Next diagnostic (LSP)", buffer = bufnr })
-  Map.leader.n("dk", "<CMD>:lua vim.diagnostic.goto_prev()<CR>", { desc = "Prev diagnostic (LSP)", buffer = bufnr })
-  
+  Map.leader.n("ep", builtin.diagnostics, { desc = "Diagnostic popup (LSP)", buffer = bufnr })
+  Map.leader.n("ej", "<CMD>:lua vim.diagnostic.goto_next()<CR>", { desc = "Next diagnostic (LSP)", buffer = bufnr })
+  Map.leader.n("ek", "<CMD>:lua vim.diagnostic.goto_prev()<CR>", { desc = "Prev diagnostic (LSP)", buffer = bufnr })
+
+  -- Testing
+  Map.leader.n("t", "", { group = "Test" })
+  Map.leader.n("to", "", { group = "Test Output" })
+  Map.leader.n("too", "<CMD>lua require('neotest').output.open()<CR>", { desc = "Open test result (TEST)" })
+  Map.leader.n("tos", "<CMD>lua require('neotest').summary.toggle()<CR>", { desc = "Toggle test summary (TEST)" })
+  Map.leader.n("tt", "<CMD>lua require('neotest').run.run()<CR>", { desc = "Test nearest (TEST)" })
+  Map.leader.n("tf", "<CMD>lua require('neotest').run.run(vim.fn.expand('%'))<CR>", { desc = "Test file (TEST)" })
+  Map.leader.n("ts", "<CMD>lua require('neotest').run.stop()<CR>", { desc = "Stop test (TEST)" })
+  Map.leader.n("tw", "", { group = "Watch" })
+  Map.leader.n("tww", "<CMD>lua require('neotest').watch.watch()<CR>", { desc = "Watch nearest test (TEST)" })
+  Map.leader.n(
+    "twf",
+    "<CMD>lua require('neotest').watch.watch(vim.fn.expand('%'))<CR>",
+    { desc = "Watch test file (TEST)" }
+  )
+  Map.leader.n("tws", "<CMD>lua require('neotest').watch.stop()<CR>", { desc = "Stop watch test (TEST)" })
+
+  -- Debug
+  Map.leader.n("d", "", { group = "Debug" })
+  Map.leader.n('dc', function() require('dap').continue() end, { desc = "Continue (F5)" })
+  Map.leader.n('di', function() require('dap').step_over() end, { desc = "Step overi (F10)" })
+  Map.leader.n('do', function() require('dap').step_into() end, { desc = "Step into (F11)" })
+  Map.leader.n('dp', function() require('dap').step_out() end, { desc = "Step out (F12)" })
+  Map.leader.n('dl', function() require('dap').run_last() end, { desc = "Run Last" })
+  Map.leader.n('dh', function() require('dap.ui.widgets').hover() end, { desc = "Evaluate expression hovered" })
+  Map.leader.n('dp', function() require('dap.ui.widgets').preview() end,
+    { desc = "Open expression evaluation in a new window" })
+
+  Map.leader.n('db', "", { group = "Breakpoint" })
+  Map.leader.n('dbb', function() require('dap').toggle_breakpoint() end, { desc = "Toggle Breakpoint" })
+  Map.leader.n('dbs', function() require('dap').set_breakpoint() end, { desc = "Set Breakpoint" })
+  Map.leader.n('dbl', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end
+  , { desc = "Set Breakpoint with log" })
+
+  Map.leader.n('dr', "", { desc = "REPL" })
+  Map.leader.n('dro', function() require('dap').repl.open() end, { desc = "Open" })
+
+  -- vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function()
+  --   require('dap.ui.widgets').preview()
+  -- end)
+  -- vim.keymap.set('n', '<Leader>df', function()
+  --   local widgets = require('dap.ui.widgets')
+  --   widgets.centered_float(widgets.frames)
+  -- end)
+  -- vim.keymap.set('n', '<Leader>ds', function()
+  --   local widgets = require('dap.ui.widgets')
+  --   widgets.centered_float(widgets.scopes)
+  -- end)
+  Map.mode.n('<F5>', function() require('dap').continue() end, { desc = "Continue" })
+  Map.mode.n('<F10>', function() require('dap').step_over() end, { desc = "Step over" })
+  Map.mode.n('<F11>', function() require('dap').step_into() end, { desc = "Step into" })
+  Map.mode.n('<F12>', function() require('dap').step_out() end, { desc = "Step out" })
+end
+
+-----------------
+-- Rust   mode --
+-----------------
+Map.OnRustLspAttach = function(bufnr)
+  -- Code
+  Map.leader.n("cm", "", { group = "Macro (RUST)" })
+  Map.leader.n("cme", "<CMD>RustLsp expandMacro<CR>", { desc = "Macro expand (RUST)" })
+  Map.leader.n("cmr", "<CMD>RustLsp rebuildProcMacros<CR>", { desc = "ProcMacros rebuild (RUST)" })
+
+  Map.leader.n("ci", "", { group = "Item Action (RUST)" })
+  Map.leader.n("ciu", "<CMD>RustLsp moveItem up<CR>", { desc = "Move Item Up (RUST)" })
+  Map.leader.n("cid", "<CMD>RustLsp moveItem down<CR>", { desc = "Move Item Down (RUST)" })
+
+  Map.leader.n(
+    "cA",
+    "<CMD>RustLsp codeAction<CR>",
+    { desc = "Code Action (RUST)", buffer = bufnr }
+  )
+
+  Map.leader.n("cj", "<CMD>RustLsp joinLines<CR>", { desc = "Join lines (RUST)" })
+
+  -- Diagnostic
+  Map.leader.n("ee", "", { group = "Explain Error (RUST)" })
+  Map.leader.n("eec", "<CMD>RustLsp explainError current<CR>", { desc = "Explain current error (RUST)" })
+  Map.leader.n("een", "<CMD>RustLsp explainError cycle<CR>", { desc = "Explain next error (RUST)" })
+
+  -- Open
+  Map.leader.n("oc", "<CMD>RustLsp openCargo<CR>", { desc = "Open Cargo.toml (RUST)" })
+  Map.leader.n("od", "<CMD>RustLsp openDocs<CR>", { desc = "Open doc for symbols under cursor (RUST)" })
+  Map.leader.n("op", "<CMD>RustLsp parentModule<CR>", { desc = "Open parent module (RUST)" })
 end
 
 
 return Map
-
