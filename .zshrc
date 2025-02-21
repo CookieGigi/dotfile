@@ -102,6 +102,7 @@ source $ZSH/oh-my-zsh.sh
 
 path+="$HOME/.local/bin"
 path+="/opt/nvim/"
+path+="$HOME/.dotnet/tools"
 export PATH
 
 eval "$(zoxide init --cmd cd zsh)"
