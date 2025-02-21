@@ -11,15 +11,15 @@ return {
 
     -- list of lsp
     local servers = {
-      rust_analyzer = {
-        settings = {
-          ['rust-analyzer'] = {
-            diagnostics = {
-              enable = false,
-            }
-          }
-        }
-      },
+      -- rust_analyzer = {
+      --   settings = {
+      --     ['rust-analyzer'] = {
+      --       diagnostics = {
+      --         enable = false,
+      --       }
+      --     }
+      --   }
+      -- },
       csharp_ls = {},
       lua_ls = {
         on_init = function(client)
@@ -46,6 +46,24 @@ return {
           Lua = {}
         }
 
+      },
+      html = {},
+      htmx = {},
+      dockerls = {},
+      ts_ls = {},
+      tailwindcss = {},
+      cssls = {},
+      pylsp = {
+        settings = {
+          pylsp = {
+            plugins = {
+              pycodestyle = {
+                ignore = { 'W391' },
+                maxLineLength = 100
+              }
+            }
+          }
+        }
       }
 
     }
@@ -81,6 +99,9 @@ return {
         local Map = require("core.mappings")
 
         Map.OnLspAttach(bufnr)
+        if client.name == "rust-analyzer" then
+          Map.OnRustLspAttach(bufnr)
+        end
 
         vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
         local filetype = vim.bo[bufnr].filetype
