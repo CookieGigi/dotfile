@@ -105,7 +105,7 @@ path+="/opt/nvim/"
 path+="$HOME/.dotnet/tools"
 export PATH
 
-eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias ls="eza -l -a"
 alias vo="NVIM_APPNAME=nvim nvim"
