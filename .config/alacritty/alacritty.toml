@@ -3,13 +3,14 @@ import = ["~/.config/alacritty/catppuccin-macchiato.toml"]
 
 
 [shell]
-program=zsh
+program = "zsh"
 
 [env]
 TERM = "screen-256color"
 
 [font.normal]
-family = "UbuntuMono Nerd Font"
+family = "JetBrains Mono Nerd Font"
+style = "Regular"
 
 [window]
 decorations = "None"
