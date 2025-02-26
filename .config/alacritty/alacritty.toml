@@ -1,8 +1,6 @@
 
-import = ["~/.config/alacritty/catppuccin-macchiato.toml"]
 
-
-[shell]
+[terminal.shell]
 program = "zsh"
 
 [env]
@@ -15,4 +13,10 @@ style = "Regular"
 [window]
 decorations = "None"
 startup_mode = "Fullscreen"
+
+[general]
+
+import = ["~/.config/alacritty/catppuccin-macchiato.toml"]
+
+[terminal]
 
