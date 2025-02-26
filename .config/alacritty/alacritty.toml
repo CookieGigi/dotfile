@@ -1,4 +1,10 @@
 
+import = ["~/.config/alacritty/catppuccin-macchiato.toml"]
+
+
+[shell]
+program=zsh
+
 [env]
 TERM = "screen-256color"
 
@@ -9,5 +15,3 @@ family = "UbuntuMono Nerd Font"
 decorations = "None"
 startup_mode = "Fullscreen"
 
-[general]
-import = ["~/.config/alacritty/catppuccin-macchiato.toml"]
