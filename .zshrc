@@ -113,7 +113,7 @@ alias vl="NVIM_APPNAME=lazyvim nvim"
 alias v="NVIM_APPNAME=neocookie nvim"
 
 
-if [ "$TMUX" = "" ]; then tmux; fi
+if [ "$TMUX" = "" ]; then tmux && tmux source ~/.tmux.conf; fi
 
 
 export NVM_DIR="$HOME/.nvm"
